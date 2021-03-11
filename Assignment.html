@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+
+.sec1,.sec2{
+	width:100px;
+    height:100px;
+    position:absolute;
+    top:0;
+    left:0;
+}
+.sec1{
+    z-index:10;
+}
+
+.sec3,.sec4{
+	width:100px;
+    height:100px;
+    position:absolute;
+}
+.sec3{
+    z-index:10;
+}
+
+</style>
+
+<script>
+
+function allowDrop(ev) {
+    ev.preventDefault();
+}
+
+function drag(ev) {
+    ev.dataTransfer.setData("text", ev.target.id);
+}
+
+function drop(ev) {
+    ev.preventDefault();
+    var data = ev.dataTransfer.getData("text");
+    ev.target.appendChild(document.getElementById(data));
+}
+
+</script>
+</head>
+
+<body>
+
+	<section class="sec2">
+		<svg width="100" height="100">
+			<circle id="abc" cx="50" cy="50" r="50" fill="yellow"></circle>
+		</svg>
+	</section>
+    
+	<section id="sec1" class="sec1" ondrop="drop(event)" ondragover="allowDrop(event)">
+	</section>
+
+	<br/><br/><br/><br/><br/><br/>
+    
+    <section class="sec4">
+		<svg width="100" height="100">
+			<circle id="abc2" cx="50" cy="50" r="50" fill="green"></circle>
+		</svg>
+	</section>
+    
+	<section id="sec3" class="sec3" ondrop="drop(event)" ondragover="allowDrop(event)">
+	</section>
+    
+    <br/><br/><br/><br/><br/>
+
+	<p style="text-align:center"> <b>Drag the gif image to the SVG circles above.</b></p>
+    
+	<img src="programming.gif" id="drg1" alt="Check Internet Connection" draggable="true" ondragstart="drag(event)" width="100" height="100"/>
+    
+    <br/>
+    
+    <p id ="demo" ></p>
+    
+    <br/><br/><br/><br/><br/>
+    <div id="result" style="text-align:center"></div>
+    <script>
+  			if (navigator.geolocation) {
+    			navigator.geolocation.getCurrentPosition(showPosition);
+  			} 
+            else { 
+    			document.getElementById("demo").innerHTML = "Geolocation is not supported by this browser.";
+  			}
+
+		function showPosition(position) {
+  				document.getElementById("demo").innerHTML = "Latitude: " + position.coords.latitude + "<br>Longitude: " + position.coords.longitude;
+                
+                storage(document.getElementById("demo").innerHTML);
+                
+		}
+        
+        function storage(x){
+        	if (typeof(Storage) !== "undefined") {
+  				// Store
+  				localStorage.Location = x;
+  				// Retrieve
+  				document.getElementById("result").innerHTML = localStorage.Location;
+            } 
+            else {
+				document.getElementById("result").innerHTML = "Sorry, your browser does not support Web Storage...";
+			}
+        }
+    </script>
+    <br/><br/><br/><br/><br/>
+    
+    <script>
+        	var x = document.getElementById("demo").innerHTML;
+        	// Check browser support
+			 	
+	</script>
+    
+</body>
+</html>
